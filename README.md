@@ -1,6 +1,10 @@
 # FFmpeg Static Auto-Builds
 
-Static Windows (x86_64) and Linux (x86_64) Builds of ffmpeg master and latest release branch.
+![Build FFmpeg](https://github.com/sudo-nautilus/FFmpeg-Builds-Win32/actions/workflows/build.yml/badge.svg)
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/sudo-nautilus/FFmpeg-Builds-Win32.svg)](http://isitmaintained.com/project/sudo-nautilus/FFmpeg-Builds-Win32 "Percentage of issues still open")
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/sudo-nautilus/FFmpeg-Builds-Win32.svg)](http://isitmaintained.com/project/sudo-nautilus/FFmpeg-Builds-Win32 "Average time to resolve an issue")
+
+Static Windows (x86) and Linux (x86_64) Builds of ffmpeg master and latest release branch.
 
 Windows builds are targetting Windows 7 and newer.
 
