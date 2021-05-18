@@ -1,7 +1,9 @@
 name: Build FFmpeg
 
 on:
-  push: []
+  push:
+    paths-ignore:
+      - '**.md'
   repository_dispatch:
     types: [build]
   schedule:
