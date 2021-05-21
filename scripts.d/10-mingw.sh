@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MINGW_REPO="https://github.com/mirror/mingw-w64.git"
-MINGW_COMMIT="c17efd05d019136a9b3527e2dd32234175c0a9f9"
+MINGW_COMMIT="a528542c803bc027e1c0a1c772a4ad575c2c9018"
 
 ffbuild_enabled() {
     [[ $TARGET == win* ]] || return -1
@@ -37,8 +37,6 @@ ffbuild_dockerbuild() {
     unset LDFLAGS
     unset PKG_CONFIG_LIBDIR
 
-    autoreconf -i
-
     local myconf=(
         --prefix="/usr/$FFBUILD_TOOLCHAIN"
         --host="$FFBUILD_TOOLCHAIN"
@@ -51,8 +49,6 @@ ffbuild_dockerbuild() {
     make install DESTDIR="/opt/mingw"
 
     cd ../mingw-w64-libraries/winpthreads
-
-    autoreconf -i
 
     local myconf=(
         --prefix="/usr/$FFBUILD_TOOLCHAIN"
