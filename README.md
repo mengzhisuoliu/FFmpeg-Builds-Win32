@@ -1,6 +1,6 @@
 # FFmpeg Static Auto-Builds
 
-Static Windows (x86) and Linux (x86_64) Builds of ffmpeg master and latest release branch.
+Static Windows (x86) Builds of ffmpeg master and latest release branch.
 
 Windows builds are targetting Windows 7 and newer.
 
