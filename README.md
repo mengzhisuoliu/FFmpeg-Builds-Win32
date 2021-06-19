@@ -4,8 +4,6 @@ Static Windows (x86) Builds of ffmpeg master and latest release branch.
 
 Windows builds are targetting Windows 7 and newer.
 
-Linux builds are targetting Ubuntu 16.04 (glibc-2.23 + linux-4.4) and anything more recent.
-
 ## Auto-Builds
 
 Builds run daily at 12:00 UTC (or GitHubs idea of that time) and are automatically released on success.
