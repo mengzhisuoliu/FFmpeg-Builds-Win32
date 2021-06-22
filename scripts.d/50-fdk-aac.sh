@@ -1,30 +1,30 @@
 #!/bin/bash
 
-DAVS2_REPO="https://github.com/pkuvcl/davs2.git"
-DAVS2_COMMIT="b06d7585620f4e90a6d19a2926bb4e59793b8942"
+FDK_REPO="https://github.com/mstorsjo/fdk-aac.git"
+FDK_COMMIT="801f67f671929311e0c9952c5f92d6e147c7b003"
 
 ffbuild_enabled() {
-    [[ $VARIANT == lgpl* ]] && return -1
-    [[ $TARGET == win32 ]] && return -1
+    [[ $VARIANT == nonfree* ]] || return -1
     return 0
 }
 
 ffbuild_dockerbuild() {
-    git clone "$DAVS2_REPO" davs2
-    cd davs2
-    git checkout "$DAVS2_COMMIT"
-    cd build/linux
+    git-mini-clone "$FDK_REPO" "$FDK_COMMIT" fdk
+    cd fdk
+
+    ./autogen.sh
 
     local myconf=(
-        --disable-cli
-        --enable-pic
         --prefix="$FFBUILD_PREFIX"
+        --disable-shared
+        --enable-static
+        --with-pic
+        --disable-example
     )
 
     if [[ $TARGET == win* || $TARGET == linux* ]]; then
         myconf+=(
             --host="$FFBUILD_TOOLCHAIN"
-            --cross-prefix="$FFBUILD_CROSS_PREFIX"
         )
     else
         echo "Unknown target"
@@ -37,9 +37,9 @@ ffbuild_dockerbuild() {
 }
 
 ffbuild_configure() {
-    echo --enable-libdavs2
+    echo --enable-libfdk-aac
 }
 
 ffbuild_unconfigure() {
-    echo --disable-libdavs2
+    echo --disable-libfdk-aac
 }
