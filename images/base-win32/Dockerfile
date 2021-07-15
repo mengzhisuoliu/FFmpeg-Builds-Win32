@@ -23,8 +23,11 @@ ENV FFBUILD_TARGET_FLAGS="--pkg-config=pkg-config --cross-prefix=i686-w64-mingw3
     FFBUILD_RUST_TARGET=i686-pc-windows-gnu \
     FFBUILD_PREFIX=/opt/ffbuild \
     FFBUILD_CMAKE_TOOLCHAIN=/toolchain.cmake \
-    PKG_CONFIG_LIBDIR=/opt/ffbuild/lib/pkgconfig \
+    PKG_CONFIG=pkg-config \
+    PKG_CONFIG_LIBDIR=/opt/ffbuild/lib/pkgconfig:/opt/ffbuild/share/pkgconfig \
     CFLAGS="-static-libgcc -static-libstdc++ -I/opt/ffbuild/include -O2 -pipe -D_FORTIFY_SOURCE=2 -fstack-protector-strong" \
     CXXFLAGS="-static-libgcc -static-libstdc++ -I/opt/ffbuild/include -O2 -pipe -D_FORTIFY_SOURCE=2 -fstack-protector-strong" \
     LDFLAGS="-static-libgcc -static-libstdc++ -L/opt/ffbuild/lib -O2 -pipe -fstack-protector-strong" \
-    DLLTOOL="i686-w64-mingw32-dlltool"
+    DLLTOOL="i686-w64-mingw32-dlltool" \
+    STAGE_CFLAGS="-fno-semantic-interposition" \
+    STAGE_CXXFLAGS="-fno-semantic-interposition"

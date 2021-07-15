@@ -36,9 +36,10 @@ ENV FFBUILD_TARGET_FLAGS="--pkg-config=pkg-config --cross-prefix=x86_64-ffbuild-
     FFBUILD_RUST_TARGET="x86_64-unknown-linux-gnu" \
     FFBUILD_PREFIX=/opt/ffbuild \
     FFBUILD_CMAKE_TOOLCHAIN=/toolchain.cmake \
-    PKG_CONFIG_LIBDIR=/opt/ffbuild/lib/pkgconfig \
+    PKG_CONFIG=pkg-config \
+    PKG_CONFIG_LIBDIR=/opt/ffbuild/lib/pkgconfig:/opt/ffbuild/share/pkgconfig \
     CFLAGS="-static-libgcc -static-libstdc++ -I/opt/ffbuild/include -O2 -pipe -fPIC -DPIC -D_FORTIFY_SOURCE=2 -fstack-protector-strong -pthread" \
     CXXFLAGS="-static-libgcc -static-libstdc++ -I/opt/ffbuild/include -O2 -pipe -fPIC -DPIC -D_FORTIFY_SOURCE=2 -fstack-protector-strong -pthread" \
     LDFLAGS="-static-libgcc -static-libstdc++ -L/opt/ffbuild/lib -O2 -pipe -fstack-protector-strong -Wl,-z,relro,-z,now -pthread -lm" \
-    STAGE_CFLAGS="-fvisibility=hidden" \
-    STAGE_CXXFLAGS="-fvisibility=hidden"
+    STAGE_CFLAGS="-fvisibility=hidden -fno-semantic-interposition" \
+    STAGE_CXXFLAGS="-fvisibility=hidden -fno-semantic-interposition"
