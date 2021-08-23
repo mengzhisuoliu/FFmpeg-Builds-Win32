@@ -1,15 +1,16 @@
 #!/bin/bash
 
-ZIMG_REPO="https://github.com/sekrit-twc/zimg.git"
-ZIMG_COMMIT="78e06999aaad201481f38bdb01a7271efb4e1b14"
+FREI0R_REPO="https://github.com/dyne/frei0r.git"
+FREI0R_COMMIT="86475d3e11e1061bf161e6ed3830fe2cf3d172ac"
 
 ffbuild_enabled() {
+    [[ $VARIANT == lgpl* ]] && return -1
     return 0
 }
 
 ffbuild_dockerbuild() {
-    git-mini-clone "$ZIMG_REPO" "$ZIMG_COMMIT" zimg
-    cd zimg
+    git-mini-clone "$FREI0R_REPO" "$FREI0R_COMMIT" frei0r
+    cd frei0r
 
     ./autogen.sh
 
@@ -18,6 +19,7 @@ ffbuild_dockerbuild() {
         --disable-shared
         --enable-static
         --with-pic
+        --enable-cpuflags
     )
 
     if [[ $TARGET == win* || $TARGET == linux* ]]; then
@@ -30,14 +32,15 @@ ffbuild_dockerbuild() {
     fi
 
     ./configure "${myconf[@]}"
-    make -j$(nproc)
-    make install
+    make -C include -j$(nproc)
+    make -C include install
+    make install-pkgconfigDATA
 }
 
 ffbuild_configure() {
-    echo --enable-libzimg
+    echo --enable-frei0r
 }
 
 ffbuild_unconfigure() {
-    echo --disable-libzimg
+    echo --disable-frei0r
 }
