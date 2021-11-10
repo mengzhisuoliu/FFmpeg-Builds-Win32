@@ -8,6 +8,14 @@ Windows builds are targetting Windows 7 and newer.
 
 Builds run daily at 12:00 UTC (or GitHubs idea of that time) and are automatically released on success.
 
+<<<<<<< HEAD
+||||||| 7d78603
+**Auto-Builds run ONLY for win64 and linux64. There are no win32/x86 auto-builds, though you can product win32 builds yourself following the instructions below.**
+
+=======
+**Auto-Builds run ONLY for win64 and linux64. There are no win32/x86 auto-builds, though you can produce win32 builds yourself following the instructions below.**
+
+>>>>>>> 6328ecc7fc155083b0c91a16c1676f456686eea4
 ### Release Retention Policy
 
 - The last build of each month is kept for two years.
