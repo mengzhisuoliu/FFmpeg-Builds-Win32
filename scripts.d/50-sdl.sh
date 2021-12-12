@@ -17,10 +17,12 @@ ffbuild_dockerbuild() {
         -DSDL_SHARED=OFF
         -DSDL_STATIC=ON
         -DSDL_STATIC_PIC=ON
+        -DSDL_TEST=OFF
     )
 
     if [[ $TARGET == linux* ]]; then
         mycmake+=(
+            -DSDL_X11=ON
             -DSDL_X11_SHARED=OFF
             -DHAVE_XGENERICEVENT=TRUE
             -DSDL_VIDEO_DRIVER_X11_HAS_XKBKEYCODETOKEYSYM=1
@@ -33,7 +35,8 @@ ffbuild_dockerbuild() {
     ninja install
 
     if [[ $TARGET == linux* ]]; then
-        sed -ri -e 's/ \-l\/.+?\.a//g' \
+        sed -ri -e 's/\-Wl,\-\-no\-undefined.*//' \
+            -e 's/ \-l\/.+?\.a//g' \
             "$FFBUILD_PREFIX"/lib/pkgconfig/sdl2.pc
         echo 'Requires: xxf86vm xscrnsaver xrandr xfixes xi xinerama xcursor' >> "$FFBUILD_PREFIX"/lib/pkgconfig/sdl2.pc
     elif [[ $TARGET == win* ]]; then
