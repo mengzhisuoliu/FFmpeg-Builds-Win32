@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SDL_REPO="https://github.com/libsdl-org/SDL.git"
-SDL_COMMIT="981e1e3c4489add5bf6d4df5415af3cf1ef2773d"
+SDL_COMMIT="0a93ac129475ab3ce11af95969f767d60e98233a"
 
 ffbuild_enabled() {
     return 0
@@ -49,6 +49,10 @@ ffbuild_dockerbuild() {
             -e 's/ \-Dmain=SDL_main//g' \
             "$FFBUILD_PREFIX"/lib/pkgconfig/sdl2.pc
     fi
+
+    sed -ri -e 's/ -lSDL2//g' \
+        -e 's/Libs: /Libs: -lSDL2 /'\
+        "$FFBUILD_PREFIX"/lib/pkgconfig/sdl2.pc
 }
 
 ffbuild_configure() {
