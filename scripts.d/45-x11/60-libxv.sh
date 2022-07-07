@@ -23,6 +23,12 @@ ffbuild_dockerbuild() {
         --without-lint
     )
 
+    if [[ $TARGET == linuxarm64 ]]; then
+        myconf+=(
+            --disable-malloc0returnsnull
+        )
+    fi
+
     if [[ $TARGET == linux* ]]; then
         myconf+=(
             --host="$FFBUILD_TOOLCHAIN"

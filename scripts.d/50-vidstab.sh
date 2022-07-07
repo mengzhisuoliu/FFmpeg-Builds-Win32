@@ -15,7 +15,18 @@ ffbuild_dockerbuild() {
 
     mkdir build && cd build
 
-    cmake -DCMAKE_TOOLCHAIN_FILE="$FFBUILD_CMAKE_TOOLCHAIN" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$FFBUILD_PREFIX" -DBUILD_SHARED_LIBS=OFF -DUSE_OMP=ON ..
+    local mycmake=(
+        -DBUILD_SHARED_LIBS=OFF
+        -DUSE_OMP=ON
+    )
+
+    if [[ $TARGET == *arm64 ]]; then
+        mycmake+=(
+            -DSSE2_FOUND=FALSE
+        )
+    fi
+
+    cmake -DCMAKE_TOOLCHAIN_FILE="$FFBUILD_CMAKE_TOOLCHAIN" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$FFBUILD_PREFIX" "${mycmake[@]}" ..
     make -j$(nproc)
     make install
 

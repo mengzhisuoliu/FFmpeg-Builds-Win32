@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OPENSSL_REPO="https://github.com/openssl/openssl.git"
-OPENSSL_COMMIT="OpenSSL_1_1_1p"
+OPENSSL_COMMIT="OpenSSL_1_1_1q"
 
 ffbuild_enabled() {
     return 0
@@ -35,6 +35,11 @@ ffbuild_dockerbuild() {
         myconf+=(
             --cross-compile-prefix="$FFBUILD_CROSS_PREFIX"
             linux-x86_64
+        )
+    elif [[ $TARGET == linuxarm64 ]]; then
+        myconf+=(
+            --cross-compile-prefix="$FFBUILD_CROSS_PREFIX"
+            linux-aarch64
         )
     else
         echo "Unknown target"

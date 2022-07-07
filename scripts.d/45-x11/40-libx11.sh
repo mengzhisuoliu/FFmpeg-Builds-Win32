@@ -27,6 +27,12 @@ ffbuild_dockerbuild() {
         --enable-ipv6
     )
 
+    if [[ $TARGET == linuxarm64 ]]; then
+        myconf+=(
+            --disable-malloc0returnsnull
+        )
+    fi
+
     if [[ $TARGET == linux* ]]; then
         myconf+=(
             --host="$FFBUILD_TOOLCHAIN"

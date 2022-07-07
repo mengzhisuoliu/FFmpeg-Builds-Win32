@@ -25,6 +25,8 @@ ffbuild_dockerbuild() {
         )
     fi
 
+    export CC="${FFBUILD_CROSS_PREFIX}gcc"
+
     cargo cinstall "${myconf[@]}"
 }
 
