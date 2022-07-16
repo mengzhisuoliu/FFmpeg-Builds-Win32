@@ -1,15 +1,16 @@
 #!/bin/bash
 
-ZIMG_REPO="https://github.com/sekrit-twc/zimg.git"
-ZIMG_COMMIT="51c3c7f750c2af61955377faad56e3ba1b03589f"
+SCRIPT_REPO="https://github.com/sekrit-twc/zimg.git"
+SCRIPT_COMMIT="598610059037bd815eedfec4f5b3683e8066446c"
 
 ffbuild_enabled() {
     return 0
 }
 
 ffbuild_dockerbuild() {
-    git-mini-clone "$ZIMG_REPO" "$ZIMG_COMMIT" zimg
+    git-mini-clone "$SCRIPT_REPO" "$SCRIPT_COMMIT" zimg
     cd zimg
+    git submodule update --init --recursive --depth=1
 
     ./autogen.sh
 

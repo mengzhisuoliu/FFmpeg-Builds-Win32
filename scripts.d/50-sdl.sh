@@ -1,14 +1,14 @@
 #!/bin/bash
 
-SDL_REPO="https://github.com/libsdl-org/SDL.git"
-SDL_COMMIT="0a93ac129475ab3ce11af95969f767d60e98233a"
+SCRIPT_REPO="https://github.com/libsdl-org/SDL.git"
+SCRIPT_COMMIT="06c7d22653b7fe5d0aeb9739bcb9666f9f327192"
 
 ffbuild_enabled() {
     return 0
 }
 
 ffbuild_dockerbuild() {
-    git-mini-clone "$SDL_REPO" "$SDL_COMMIT" sdl
+    git-mini-clone "$SCRIPT_REPO" "$SCRIPT_COMMIT" sdl
     cd sdl
 
     mkdir build && cd build
@@ -53,6 +53,8 @@ ffbuild_dockerbuild() {
     sed -ri -e 's/ -lSDL2//g' \
         -e 's/Libs: /Libs: -lSDL2 /'\
         "$FFBUILD_PREFIX"/lib/pkgconfig/sdl2.pc
+
+    echo 'Requires: samplerate' >> "$FFBUILD_PREFIX"/lib/pkgconfig/sdl2.pc
 }
 
 ffbuild_configure() {
