@@ -1,15 +1,15 @@
 #!/bin/bash
 
-SCRIPT_REPO="https://github.com/xiph/opus.git"
-SCRIPT_COMMIT="997fdf54e781ae1c04dee42018f35388a04fe483"
+SCRIPT_REPO="https://github.com/ultravideo/kvazaar.git"
+SCRIPT_COMMIT="76ce0c7716f593b5f4614aa864603684dd4fae3d"
 
 ffbuild_enabled() {
     return 0
 }
 
 ffbuild_dockerbuild() {
-    git-mini-clone "$SCRIPT_REPO" "$SCRIPT_COMMIT" opus
-    cd opus
+    git-mini-clone "$SCRIPT_REPO" "$SCRIPT_COMMIT" kvazaar
+    cd kvazaar
 
     ./autogen.sh
 
@@ -17,7 +17,7 @@ ffbuild_dockerbuild() {
         --prefix="$FFBUILD_PREFIX"
         --disable-shared
         --enable-static
-        --disable-extra-programs
+        --with-pic
     )
 
     if [[ $TARGET == win* || $TARGET == linux* ]]; then
@@ -32,12 +32,14 @@ ffbuild_dockerbuild() {
     ./configure "${myconf[@]}"
     make -j$(nproc)
     make install
+
+    echo "Cflags.private: -DKVZ_STATIC_LIB" >> "$FFBUILD_PREFIX"/lib/pkgconfig/kvazaar.pc
 }
 
 ffbuild_configure() {
-    echo --enable-libopus
+    echo --enable-libkvazaar
 }
 
 ffbuild_unconfigure() {
-    echo --disable-libopus
+    echo --disable-libkvazaar
 }
