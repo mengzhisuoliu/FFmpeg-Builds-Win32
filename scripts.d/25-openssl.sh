@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_REPO="https://github.com/openssl/openssl.git"
-SCRIPT_COMMIT="OpenSSL_1_1_1r"
+SCRIPT_COMMIT="OpenSSL_1_1_1s"
 SCRIPT_TAGFILTER="OpenSSL_1_1_1*"
 
 ffbuild_enabled() {
@@ -49,6 +49,12 @@ ffbuild_dockerbuild() {
 
     export CFLAGS="$CFLAGS -fno-strict-aliasing"
     export CXXFLAGS="$CXXFLAGS -fno-strict-aliasing"
+
+    # OpenSSL build system prepends the cross prefix itself
+    export CC="gcc"
+    export CXX="g++"
+    export AR="gcc-ar"
+    export RANLIB="gcc-ranlib"
 
     ./Configure "${myconf[@]}"
 
